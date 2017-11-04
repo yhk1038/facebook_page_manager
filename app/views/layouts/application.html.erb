@@ -35,6 +35,9 @@
     <%= render partial: '/site/part/side_chatbar' %>
 
     <section id="content">
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+
         <%= yield %>
     </section>
 </section>
