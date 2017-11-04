@@ -22,18 +22,14 @@
     <!-- Javascript Libraries -->
     <script src="/template/vendors/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/template/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    
+
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
-<body>
+<body class="flex-center-center">
 
 <%= render partial: '/site/part/top_nav' %>
 
 <section id="main" data-layout="layout-1">
-    <%= render partial: '/site/part/side_navbar' %>
-
-    <%= render partial: '/site/part/side_chatbar' %>
-
     <section id="content">
         <%= render partial: '/site/part/flash_messages', flash: flash %>
 
@@ -41,10 +37,7 @@
     </section>
 </section>
 
-
 <%= render partial: '/site/part/footer' %>
-
-<%= render partial: '/site/part/preloader' %>
 
 <%= render partial: '/site/part/old_ie' %>
 

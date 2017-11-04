@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171104125644) do
+ActiveRecord::Schema.define(version: 20171104165007) do
+
+  create_table "identities", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "email"
+    t.string "name"
+    t.string "uid"
+    t.string "provider"
+    t.string "img"
+    t.string "img_big"
+    t.string "token"
+    t.text "other_info"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "title"
+    t.string "page_name"
+    t.text "access_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_pages_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
