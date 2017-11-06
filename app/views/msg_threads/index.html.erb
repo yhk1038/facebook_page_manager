@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Msg Threads</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Page</th>
+      <th>Uid</th>
+      <th>Sender name</th>
+      <th>Sender uid</th>
+      <th>Link</th>
+      <th>Msg count</th>
+      <th>Unread count</th>
+      <th>Updated time</th>
+      <th>Other info</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @msg_threads.each do |msg_thread| %>
+      <tr>
+        <td><%= msg_thread.page %></td>
+        <td><%= msg_thread.uid %></td>
+        <td><%= msg_thread.sender_name %></td>
+        <td><%= msg_thread.sender_uid %></td>
+        <td><%= msg_thread.link %></td>
+        <td><%= msg_thread.msg_count %></td>
+        <td><%= msg_thread.unread_count %></td>
+        <td><%= msg_thread.updated_time %></td>
+        <td><%= msg_thread.other_info %></td>
+        <td><%= link_to 'Show', msg_thread %></td>
+        <td><%= link_to 'Edit', edit_msg_thread_path(msg_thread) %></td>
+        <td><%= link_to 'Destroy', msg_thread, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Msg Thread', new_msg_thread_path %>

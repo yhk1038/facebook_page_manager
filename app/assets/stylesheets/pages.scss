@@ -1,3 +1,218 @@
 // Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "drawable/*";
+
+.page.container{
+    .row{
+        padding-left: 15px;
+        padding-right: 15px;
+
+        .card.about_page{
+            margin-bottom: 10px;
+            padding: 0;
+            height: 90px;
+
+            .img-wrap{
+                padding: 12px;
+                border-right: 2px solid #bbb;
+                float: left;
+
+                img{
+                    padding: 5px;
+                    border-radius: 6px;
+                    //border: 1px solid #dddddd;
+                    box-shadow: 1px 2px 6px #b3b3b3;
+                }
+            }
+            .info{
+                padding: 30px;
+                height: 90px;
+
+                .info-title{
+                    font-size: 18px;
+                    color: #333;
+                    font-weight: 600;
+                    padding-left: 15px;
+                    padding-right: 70px;
+                    margin: 0;
+                    height: 20px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .new-msg{
+                    float: right;
+                    position: relative;
+                    top: -22px;
+                    font-size: 26px;
+                    padding: 0 10px;
+
+                    .new-msg-badge{
+
+                    }
+                    .new-msg-counter{
+                        font-size: 16px;
+                        font-weight: bold;
+                        position: relative;
+                        top: -4px;
+                        margin-left: 8px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.thread.container{
+
+    img{
+        border: 1px solid rgba(153, 153, 153, 0.25) !important;
+    }
+
+    .ms-menu{
+        .listview{
+            overflow-y: auto;
+            height: calc(100% - 120px);
+        }
+    }
+
+    .ms-body{
+        .listview{
+            .lv-body{
+                height: 702px;
+                overflow-y: auto;
+
+                .preloader-wrapper{
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    display: none;
+                    &.hide{
+                        display: flex !important;
+                    }
+                }
+                .lv-item:not(.right) .ms-item{
+                    background: #f1f0f0 !important;
+                    color: #000 !important;
+                }
+                
+                .lv-item{
+                    .media-body{
+                        .ms-item{
+                            background: #4b4f56;
+                            white-space: pre-line;
+                            color: #FFFFFF;
+                        }
+                    }
+                }
+                .lv-item.sharing{
+                    .message-share{
+                        background: none !important;
+                        padding: 0 !important;
+
+                        img{
+                            border: 0 !important;
+                            position: relative;
+                            top: -10px;
+                        }
+                    }
+                }
+                .lv-item.attachment{
+                    padding-top: 0;
+                    margin-top: -44px;
+
+                    &.right .media-body .ms-item .attached_img{
+                        &:before,
+                        &:after{
+                            right: 94px;
+                        }
+                    }
+
+                    .lv-avatar > img{
+                        display: none;
+                    }
+                    .media-body{
+                        .ms-item{
+                            min-width: 150px;
+
+                            .attached_img{
+                                width: 150px;
+                                height: 150px;
+                                float: left;
+                                background-size: 100%;
+                                background-position: center;
+                                background-color: rgba(0, 0, 0, 0.75);
+                                background-repeat: no-repeat;
+                                margin-right: 5px;
+                                margin-top: 5px;
+                                border-radius: 3px;
+                                cursor: pointer;
+                                transition: all 200ms ease;
+
+                                &:before{
+                                    content: '';
+                                    width: 150px;
+                                    height: 150px;
+                                    position: absolute;
+                                    background: rgba(0, 0, 0, 0.4);
+                                    opacity: 0;
+                                    transition: all 200ms ease;
+                                }
+                                &:after{
+                                    content: '크게 보기';
+                                    color: #FFFFFF;
+                                    font-size: 22px;
+                                    font-weight: bold;
+                                    width: 150px;
+                                    position: absolute;
+                                    text-align: center;
+                                    min-height: 35px;
+                                    max-height: 150px;
+                                    margin: 6.5% 0;
+                                    opacity: 0;
+                                    transition: all 200ms ease;
+                                }
+
+                                &:hover{
+                                    background-size: 115%;
+
+                                    &:before,
+                                    &:after{
+                                        opacity: 1;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.thread.container .ms-body .listview .lv-body .lv-item.attachment.right .media-body .ms-item {
+
+}
+
+.thread.container{
+    #messages-main{
+        .ms-menu{
+            .listview{
+                .lv-item{
+                    &.active{
+                        background: #a9a9a9;
+
+                        .lv-title{
+                            color: #FFFFFF;
+                        }
+                        .lv-small{
+                            color: #DFDFDF;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

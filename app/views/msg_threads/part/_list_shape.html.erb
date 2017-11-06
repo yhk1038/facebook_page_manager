@@ -1,0 +1,11 @@
+
+<div data-uid="<%= thread.uid %>" class="mailbox lv-item media <%= 'active' if @thread_i == 1 %>">
+    <div class="lv-avatar pull-left">
+        <img src="<%= thread.sender_img %>" alt="">
+    </div>
+    <div class="media-body">
+        <div class="lv-title"><%= thread.sender_name %></div>
+        <div class="lv-small"><%= thread.update_time %></div>
+    </div>
+</div>
+<% @thread_i += 1 %>

@@ -1,0 +1,52 @@
+<%= form_with(model: message, local: true) do |form| %>
+  <% if message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
+
+      <ul>
+      <% message.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :msg_thread_id %>
+    <%= form.text_field :msg_thread_id, id: :message_msg_thread_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :uid %>
+    <%= form.text_field :uid, id: :message_uid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :created_time %>
+    <%= form.text_field :created_time, id: :message_created_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sender_name %>
+    <%= form.text_field :sender_name, id: :message_sender_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sender_uid %>
+    <%= form.text_field :sender_uid, id: :message_sender_uid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content, id: :message_content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :attachment %>
+    <%= form.text_area :attachment, id: :message_attachment %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

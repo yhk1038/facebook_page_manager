@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Msg thread:</strong>
+  <%= @message.msg_thread %>
+</p>
+
+<p>
+  <strong>Uid:</strong>
+  <%= @message.uid %>
+</p>
+
+<p>
+  <strong>Created time:</strong>
+  <%= @message.created_time %>
+</p>
+
+<p>
+  <strong>Sender name:</strong>
+  <%= @message.sender_name %>
+</p>
+
+<p>
+  <strong>Sender uid:</strong>
+  <%= @message.sender_uid %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @message.content %>
+</p>
+
+<p>
+  <strong>Attachment:</strong>
+  <%= @message.attachment %>
+</p>
+
+<%= link_to 'Edit', edit_message_path(@message) %> |
+<%= link_to 'Back', messages_path %>

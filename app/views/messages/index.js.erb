@@ -1,0 +1,12 @@
+console.log('js.erb loaded!');
+$('#msg-wrapper').append(
+    "<%= escape_javascript(render partial: '/messages/part/chat_shape', collection: @messages, as: :message) %>"
+)
+
+$('#btn-load_more').show();
+$('.msg_box.preloader-wrapper').removeClass('hide');
+
+scrollToBottom(document.getElementById('msg-body'));
+
+$('.ms-menu').removeClass('toggled');
+$('#ms-menu-trigger').removeClass('open');

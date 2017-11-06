@@ -6,6 +6,8 @@ class User < ApplicationRecord
            :omniauthable, :omniauth_providers => [:facebook]
 
     has_many :identities, dependent: :destroy
+    has_many :adminlists, dependent: :destroy
+    has_many :pages, through: :adminlists
 
     def self.find_for_oauth(auth, signed_in_resource = nil)
 
@@ -20,6 +22,7 @@ class User < ApplicationRecord
 
             # 이미 있는 이메일인지 확인한다.
             user = User.where(email: auth.info.email).take
+            user = User.where(provider: auth.provider, uid: auth.uid).take unless user
 
             unless user
                 # 없다면 새로운 데이터를 생성한다.
@@ -43,7 +46,6 @@ class User < ApplicationRecord
 
                     else
                         user = User.new(
-                            email: identity.email,
                             img: identity.img,
                             img_big: identity.img_big,
                             # remote_profile_img_url: auth.info.image.gsub('http://','https://'),
@@ -56,6 +58,7 @@ class User < ApplicationRecord
 
                             password: Devise.friendly_token[0,20]
                         )
+                        user.email = identity.email if identity.email
                     end
                     user.save!
                 end
@@ -68,5 +71,15 @@ class User < ApplicationRecord
         end
         user
 
+    end
+
+    # email이 없어도 가입이 되도록 설정
+
+    def email_required?
+        false
+    end
+
+    def load_pages
+        Facebook.page_list_loading_process(self)
     end
 end

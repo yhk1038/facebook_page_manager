@@ -1,0 +1,38 @@
+
+<div class="<%= 'attachment' if message.attachment %> <%= 'sharing' if message.share && message.sharing[:meme_type] == 'sticker' %> each_msg lv-item media <%= 'right' unless message.received %>">
+    <div class="lv-avatar pull-<%= message.received ? 'left' : 'right' %>">
+        <img src="<%= message.sender_img %>" alt="">
+    </div>
+    <div class="media-body">
+        <% if message.attachment.nil? && (message.share.nil? || message.sharing[:meme_type] != 'sticker') %>
+            <div class="ms-item"><%== auto_link(message.content, link: :urls, html: {target: '_blank'}) %></div>
+        <% elsif message.attachment %>
+            <div class="ms-item"><% message.attach.each do |att| %><% if att[:mime_type].include? 'image' %><div
+                            class="attached_img"
+                            id="<%= att[:name] %>"
+                            data-uid="<%= att[:id] %>"
+                            data-name="<%= att[:name] %>"
+                            data-mime_type="<%= att[:mime_type] %>"
+                            data-width="<%= att[:image_data][:width] %>"
+                            data-height="<%= att[:image_data][:height] %>"
+                            data-url="<%= att[:image_data][:url] %>"
+                            data-preview_url="<%= att[:image_data][:preview_url] %>"
+                            data-image_type="<%= att[:image_data][:image_type] %>"
+                            data-render_as_sticker="<%= att[:image_data][:render_as_sticker] %>"
+                            style="background-image: url(<%= att[:image_data][:preview_url] %>)"></div><% end %><% end %></div>
+
+        <% elsif message.share && message.sharing[:meme_type] == 'sticker' %>
+            <% att = message.sharing %>
+            <div class="ms-item message-share">
+                <img
+                    data-uid="<%= att[:id] %>"
+                    data-name="<%= att[:name] %>"
+                    data-mime_type="<%= att[:mime_type] %>"
+                    data-url="<%= att[:link] %>"
+                    src="<%= att[:link] %>"/>
+            </div>
+        <% end %>
+        <small class="ms-date"><i class="zmdi zmdi-time"></i> <%= time_parse_stringify(message.created_time) %></small>
+        <!--20/02/2015 at 09:00-->
+    </div>
+</div>

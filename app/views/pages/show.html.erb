@@ -1,24 +1,159 @@
-<p id="notice"><%= notice %></p>
+<div class="thread container">
+    <div class="block-header">
+        <h2>Messages</h2>
+    </div>
 
-<p>
-  <strong>User:</strong>
-  <%= @page.user %>
-</p>
+    <div class="card m-b-0" id="messages-main">
 
-<p>
-  <strong>Title:</strong>
-  <%= @page.title %>
-</p>
+        <div class="ms-menu">
+            <div class="ms-block">
+                <div class="ms-user">
+                    <img src="<%= @page.img %>" alt="">
+                    <div>Signed in as <br/> <b><%= @page.title %></b></div>
+                </div>
+            </div>
 
-<p>
-  <strong>Page name:</strong>
-  <%= @page.page_name %>
-</p>
+            <div class="ms-block">
+                <div class="dropdown">
+                    <a class="btn btn-primary btn-block" href="" data-toggle="dropdown">Messages <i class="caret m-l-5"></i></a>
 
-<p>
-  <strong>Access token:</strong>
-  <%= @page.access_token %>
-</p>
+                    <ul class="dropdown-menu dm-icon w-100">
+                        <li><a href=""><i class="zmdi zmdi-email"></i> Messages</a></li>
+                        <li><a href=""><i class="zmdi zmdi-account"></i> Contacts</a></li>
+                        <li><a href=""><i class="zmdi zmdi-format-list-bulleted"> </i>Todo Lists</a></li>
+                    </ul>
+                </div>
+            </div>
 
-<%= link_to 'Edit', edit_page_path(@page) %> |
-<%= link_to 'Back', pages_path %>
+            <div class="listview lv-user m-t-20 scbar-3">
+                <% @thread_i = 1 %>
+                <%= render partial: '/msg_threads/part/list_shape', collection: @threads, as: :thread %>
+            </div>
+
+
+        </div>
+
+        <div class="ms-body">
+            <div class="listview lv-message">
+                <div class="lv-header-alt clearfix">
+                    <div id="ms-menu-trigger">
+                        <div class="line-wrap">
+                            <div class="line top"></div>
+                            <div class="line center"></div>
+                            <div class="line bottom"></div>
+                        </div>
+                    </div>
+
+                    <div class="lvh-label hidden-xs">
+                        <div class="lv-avatar pull-left">
+                            <img src="<%= @thread.sender_img %>" alt="">
+                        </div>
+                        <span class="c-black"><%= @thread.sender_name %></span>
+                    </div>
+
+                    <ul class="lv-actions actions">
+                        <li>
+                            <a href="">
+                                <i class="zmdi zmdi-delete"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="zmdi zmdi-check"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="zmdi zmdi-time"></i>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="" data-toggle="dropdown" aria-expanded="true">
+                                <i class="zmdi zmdi-sort"></i>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a href="">Latest</a>
+                                </li>
+                                <li>
+                                    <a href="">Oldest</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="" data-toggle="dropdown" aria-expanded="true">
+                                <i class="zmdi zmdi-more-vert"></i>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a href="">Refresh</a>
+                                </li>
+                                <li>
+                                    <a href="">Message Settings</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="msg-body" class="lv-body scbar-3">
+                    <div class="msg_box preloader-wrapper flex-center-center">
+                        <div class="preloader pl-xxl">
+                            <svg class="pl-circular" viewBox="25 25 50 50">
+                                <circle class="plc-path" cx="50" cy="50" r="20"></circle>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div id="msg-wrapper">
+                        <%= render partial: '/messages/part/chat_shape', collection: @messages.reverse, as: :message %>
+                    </div>
+
+                    <% if @thread.next_token %>
+                        <div class="w-100 text-center">
+                            <a href="<%= @thread.next_token %>" target="_blank" id="btn-load_more" class="btn m-t-20 m-b-30 p-relative bgm-pink">Load More</a>
+                        </div>
+                    <% end %>
+                </div>
+
+                <div class="lv-footer ms-reply">
+                    <textarea placeholder="What's on your mind..."></textarea>
+
+                    <button><i class="zmdi zmdi-mail-send"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<style>
+    body > .page-loader{
+        display: none;
+    }
+    section#main{
+        padding-bottom: 0 !important;
+    }
+    #footer{
+        display: none;
+    }
+
+    section#content,
+    section#content > .thread,
+    #messages-main > .ms-body,
+    #messages-main > .ms-body > .lv-message{  height: 100%; }
+    #messages-main{ height: calc(100% - 40px) !important; }
+    #msg-body{ height: calc(100% - 144px); }
+</style>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function () {
+    var height = window.screen.height;
+    var height = (height - 100);
+
+    $('#main').css('height', height+'px');
+
+    scrollToBottom(document.getElementById('msg-body'));
+})
+</script>

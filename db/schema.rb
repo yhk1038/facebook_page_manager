@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171104165007) do
+ActiveRecord::Schema.define(version: 20171106080332) do
+
+  create_table "adminlists", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "page_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_adminlists_on_page_id"
+    t.index ["user_id"], name: "index_adminlists_on_user_id"
+  end
 
   create_table "identities", force: :cascade do |t|
     t.integer "user_id"
@@ -28,13 +37,55 @@ ActiveRecord::Schema.define(version: 20171104165007) do
     t.index ["user_id"], name: "index_identities_on_user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "msg_thread_id"
+    t.string "uid"
+    t.string "created_time"
+    t.string "sender_name"
+    t.string "sender_uid"
+    t.text "content"
+    t.text "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "sender_img"
+    t.boolean "received"
+    t.text "share"
+    t.index ["msg_thread_id"], name: "index_messages_on_msg_thread_id"
+  end
+
+  create_table "msg_threads", force: :cascade do |t|
+    t.integer "page_id"
+    t.string "uid"
+    t.string "sender_name"
+    t.string "sender_uid"
+    t.string "link"
+    t.string "msg_count"
+    t.string "unread_count"
+    t.string "updated_time"
+    t.text "other_info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "sender_img"
+    t.string "next_token"
+    t.string "prev_token"
+    t.string "paging_token"
+    t.index ["page_id"], name: "index_msg_threads_on_page_id"
+  end
+
   create_table "pages", force: :cascade do |t|
     t.integer "user_id"
+    t.string "uid"
     t.string "title"
     t.string "page_name"
     t.text "access_token"
+    t.string "img"
+    t.integer "unread_msg_count"
+    t.integer "unseen_msg_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "next_token"
+    t.string "prev_token"
+    t.string "paging_token"
     t.index ["user_id"], name: "index_pages_on_user_id"
   end
 

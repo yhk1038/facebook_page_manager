@@ -1,0 +1,62 @@
+<%= form_with(model: msg_thread, local: true) do |form| %>
+  <% if msg_thread.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(msg_thread.errors.count, "error") %> prohibited this msg_thread from being saved:</h2>
+
+      <ul>
+      <% msg_thread.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :page_id %>
+    <%= form.text_field :page_id, id: :msg_thread_page_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :uid %>
+    <%= form.text_field :uid, id: :msg_thread_uid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sender_name %>
+    <%= form.text_field :sender_name, id: :msg_thread_sender_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sender_uid %>
+    <%= form.text_field :sender_uid, id: :msg_thread_sender_uid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :link %>
+    <%= form.text_field :link, id: :msg_thread_link %>
+  </div>
+
+  <div class="field">
+    <%= form.label :msg_count %>
+    <%= form.text_field :msg_count, id: :msg_thread_msg_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unread_count %>
+    <%= form.text_field :unread_count, id: :msg_thread_unread_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :updated_time %>
+    <%= form.text_field :updated_time, id: :msg_thread_updated_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :other_info %>
+    <%= form.text_area :other_info, id: :msg_thread_other_info %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

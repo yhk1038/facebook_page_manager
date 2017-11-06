@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'awesome_print'
+gem 'rails_autolink'
 gem 'seed_dump'
 gem 'faker'
 

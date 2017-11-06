@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Page:</strong>
+  <%= @msg_thread.page %>
+</p>
+
+<p>
+  <strong>Uid:</strong>
+  <%= @msg_thread.uid %>
+</p>
+
+<p>
+  <strong>Sender name:</strong>
+  <%= @msg_thread.sender_name %>
+</p>
+
+<p>
+  <strong>Sender uid:</strong>
+  <%= @msg_thread.sender_uid %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @msg_thread.link %>
+</p>
+
+<p>
+  <strong>Msg count:</strong>
+  <%= @msg_thread.msg_count %>
+</p>
+
+<p>
+  <strong>Unread count:</strong>
+  <%= @msg_thread.unread_count %>
+</p>
+
+<p>
+  <strong>Updated time:</strong>
+  <%= @msg_thread.updated_time %>
+</p>
+
+<p>
+  <strong>Other info:</strong>
+  <%= @msg_thread.other_info %>
+</p>
+
+<%= link_to 'Edit', edit_msg_thread_path(@msg_thread) %> |
+<%= link_to 'Back', msg_threads_path %>
