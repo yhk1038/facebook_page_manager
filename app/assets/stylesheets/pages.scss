@@ -216,3 +216,19 @@
         }
     }
 }
+
+.mailbox{
+    &.new .media-body{
+        .lv-title{
+            &:before{
+                content: '';
+                width: 8px;
+                height: 8px;
+                position: absolute;
+                background: #8de690;
+                right: 10px;
+                border-radius: 100%;
+            }
+        }
+    }
+}

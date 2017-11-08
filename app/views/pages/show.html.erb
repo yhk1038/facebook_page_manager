@@ -25,9 +25,16 @@
                 </div>
             </div>
 
-            <div class="listview lv-user m-t-20 scbar-3">
+            <div class="listview lv-user m-t-20 scbar-3" data-page_uid="<%= @page.uid %>">
                 <% @thread_i = 1 %>
                 <%= render partial: '/msg_threads/part/list_shape', collection: @threads, as: :thread %>
+                <div data-next_token="<%= @page.next_token %>" class="thread_list preloader-wrapper flex-center-center m-t-10" style="display: none;">
+                    <div class="preloader">
+                        <svg class="pl-circular" viewBox="25 25 50 50">
+                            <circle class="plc-path" cx="50" cy="50" r="20"></circle>
+                        </svg>
+                    </div>
+                </div>
             </div>
 
 
@@ -107,15 +114,15 @@
                         </div>
                     </div>
 
-                    <div id="msg-wrapper">
-                        <%= render partial: '/messages/part/chat_shape', collection: @messages.reverse, as: :message %>
-                    </div>
-
                     <% if @thread.next_token %>
                         <div class="w-100 text-center">
                             <a href="<%= @thread.next_token %>" target="_blank" id="btn-load_more" class="btn m-t-20 m-b-30 p-relative bgm-pink">Load More</a>
                         </div>
                     <% end %>
+
+                    <div id="msg-wrapper">
+                        <%= render partial: '/messages/part/chat_shape', collection: @messages.reverse, as: :message %>
+                    </div>
                 </div>
 
                 <div class="lv-footer ms-reply">

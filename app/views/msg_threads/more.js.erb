@@ -1,0 +1,12 @@
+
+$('.ms-menu .thread_list.preloader-wrapper').before(
+    '<%= escape_javascript(render partial: '/msg_threads/part/list_shape', collection: @threads, as: :thread) %>'
+);
+
+clickable_binding_thread_list();
+
+var preloader = $('.thread_list.preloader-wrapper');
+preloader.hide();
+
+var next_token_box = $('.thread_list.preloader-wrapper');
+next_token_box.data('next_token', '<%= @next_token %>');

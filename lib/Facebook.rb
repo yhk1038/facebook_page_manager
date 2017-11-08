@@ -2,7 +2,7 @@ require 'rest-client'
 
 class Facebook
     attr_accessor :api_domain, :api_version,
-                  :user, :user_id, :users_access_token
+                  :user, :user_id, :users_access_token, :next_thread_token
 
     def initialize(user=nil)
         @api_domain  = 'https://graph.facebook.com'
@@ -12,6 +12,7 @@ class Facebook
         @user_id = user.uid
 
         @users_access_token = user.facebook_token
+        @next_thread_token = nil
     end
 
     def get_user_pages
@@ -37,8 +38,9 @@ class Facebook
         user.pages
     end
 
-    def get_page_threads(page)
-        load_thread_list(page).each do |raw_data|
+    def get_page_threads(page, more=false)
+        list = []
+        load_thread_list(page, more).each do |raw_data|
             thread = MsgThread.find_or_create_by(uid: raw_data[:id])
             thread.link         = raw_data[:link]
             thread.updated_time = raw_data[:updated_time]
@@ -53,9 +55,10 @@ class Facebook
 
             thread.page = page
             thread.save
+            list << thread
         end
 
-        page.msg_threads
+        list
     end
 
     def get_thread_messages(page, thread)
@@ -83,15 +86,26 @@ class Facebook
         response[:body][:accounts][:data]
     end
 
-    def load_thread_list(page)
-        uri = request_uri(page.uid, query('thread-index'), page.access_token)
+    def load_thread_list(page, uri=nil)
+        load_more = uri
+        unless uri
+            uri = request_uri(page.uid, query('thread-index'), page.access_token)
+        end
         response = rest_call('get', uri)
 
-        page.update(
-            next_token: response[:body][:threads][:paging][:next],
-            prev_token: ''
-        )
-        response[:body][:threads][:data]
+        logger response[:body]
+
+        unless load_more
+            page.update(
+                next_token: response[:body][:threads][:paging][:next],
+                prev_token: ''
+            )
+            logger response
+            return response[:body][:threads][:data]
+        else
+            @next_thread_token = response[:body][:paging][:next]
+            return response[:body][:data]
+        end
     end
 
     def load_msg_list(page, thread)
